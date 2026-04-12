@@ -4,8 +4,8 @@ I'm Julious, a Full Stack Web Developer from the Philippines <img src="https://t
 
 ## 🧠 What I do
 
-- ⚡ **Frontend Engineering** - JavaScript, TypeScript, React, React Native, Next.js; performance-optimized UIs and design systems
-- 🛠️ **Backend & APIs** - Node.js, C#, PHP; scalable REST APIs; MySQL, SQL Server
+- ⚡ **Frontend Engineering** - JavaScript, TypeScript, React, React Native, Next.js, Figma
+- 🛠️ **Backend & APIs** - Node.js, C#, PHP, REST APIs, MySQL, SQL Server, MongoDB
 - 🚀 **Product Development** - Full-stack SaaS platforms and MVPs from concept through launch
 - 🛍️ **Shopify** - Custom apps, themes, Liquid templating, Storefront API integrations
 - 🧊 **3D Web** - Three.js experiences, interactive 3D visualizations
