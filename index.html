@@ -1,0 +1,1606 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JM de Leon — Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f4f2ee;
+  --surface: #ffffff;
+  --border: #e0ddd6;
+  --text: #18170f;
+  --muted: #7a7870;
+  --accent: #0cb8b6;
+  --accent-vivid: #e938d3;
+  --accent-light: #e0fafa;
+  --amber: #c85a10;
+  --amber-light: #fdecd9;
+  --hero-dark: #0c1418;
+  --radius: 6px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 3rem;
+  background: #080913;
+  backdrop-filter: blur(14px);
+}
+.nav-logo {
+  font-family: 'DM Mono', monospace; font-size: 0.85rem;
+  background: linear-gradient(90deg, #73F2F0, #E938D3);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  letter-spacing: 0.08em; text-decoration: none;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: 'DM Mono', monospace; font-size: 0.78rem;
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  letter-spacing: 0.06em; transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 7rem 3rem 5rem;
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(ellipse 75% 55% at 65% 35%, rgba(115,242,240,0.09) 0%, transparent 68%),
+    radial-gradient(ellipse 55% 50% at 18% 82%, rgba(233,56,211,0.08) 0%, transparent 62%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ccircle cx='22' cy='22' r='1.1' fill='%2373F2F0' fill-opacity='0.13'/%3E%3C/svg%3E")
+    #080913;
+  background-size: auto, auto, 44px 44px;
+}
+#hero-particles {
+  position: absolute; inset: 0;
+  z-index: 0;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+/* hero text */
+.hero-inner {
+  max-width: 1200px; width: 100%; margin: 0 auto;
+  display: flex; align-items: center; gap: 5rem; position: relative; z-index: 2;
+}
+.hero-text { flex: 1; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: 'DM Mono', monospace; font-size: 0.72rem;
+  color: #73F2F0; letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 1.75rem;
+  background: rgba(115,242,240,0.1);
+  border: 1px solid rgba(115,242,240,0.28);
+  padding: 0.35rem 0.9rem; 
+  border-radius: 6px;
+}
+.hero h1 {
+  font-size: clamp(3rem, 5.5vw, 5.2rem);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.03em;
+  color: #fff; margin-bottom: 1.5rem;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, #73F2F0 0%, #E938D3 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-desc {
+  font-size: 1.05rem; color: rgba(255,255,255,0.52);
+  line-height: 1.75; margin-bottom: 2.5rem; max-width: 460px;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.8rem 1.8rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.88rem; font-weight: 600;
+  border-radius: var(--radius); text-decoration: none;
+  transition: all 0.22s; cursor: pointer; border: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #73F2F0 0%, #E938D3 100%); color: #0c1418;
+  /* box-shadow: 0 4px 20px rgba(115,242,240,0.35); */
+}
+.btn-primary:hover { background: linear-gradient(135deg, #8ff5f3 0%, #ec50dc 100%); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(233,56,211,0.4); }
+.btn-ghost {
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
+
+.hero-stats-row { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+.hero-stat-pill {
+  display: flex; flex-direction: column; gap: 0.1rem;
+  padding: 0.8rem 1.3rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+}
+.hero-stat-pill strong { font-size: 1.6rem; font-weight: 800; color: #73F2F0; line-height: 1; }
+.hero-stat-pill span {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem;
+  color: rgba(255,255,255,0.35); letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* floating chips */
+.hero-chip {
+  position: absolute;
+  font-family: 'DM Mono', monospace; font-size: 0.68rem;
+  padding: 0.35rem 0.8rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(115,242,240,0.25);
+  border-radius: 6px; color: #73F2F0;
+  pointer-events: none; white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  z-index: 1;
+  animation: floatChip 9s ease-in-out infinite;
+}
+.chip-1 { top: 15%; right: 3%; animation-duration: 10s; }
+.chip-2 { top: 70%; right: 2%; animation-delay: 2.5s; animation-duration: 12s; }
+@keyframes floatChip { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-12px) rotate(1deg)} }
+
+/* scroll hint */
+.scroll-hint {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  font-family: 'DM Mono', monospace; font-size: 0.62rem;
+  color: rgba(255,255,255,0.2); letter-spacing: 0.12em; text-transform: uppercase;
+  z-index: 2;
+}
+.scroll-hint::after {
+  content: ''; width: 1px; height: 36px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* ── PAGE SECTIONS ── */
+.page-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+.section-label {
+  font-family: 'DM Mono', monospace; font-size: 0.7rem;
+  color: var(--accent-vivid); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.6rem;
+}
+.section-title {
+  font-size: clamp(1.9rem, 3.5vw, 2.75rem);
+  font-weight: 800; letter-spacing: -0.025em; margin-bottom: 0.85rem; line-height: 1.1;
+}
+.section-sub {
+  font-size: 0.95rem; color: var(--muted);
+  line-height: 1.75; max-width: 500px; margin-bottom: 3.5rem;
+}
+.divider { height: 1px; background: var(--border); max-width: 1200px; margin: 0 auto; }
+
+/* ── SKILLS ── */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 16px;
+}
+.skill-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.75rem;
+  transition: box-shadow 0.22s, transform 0.22s, border-color 0.22s;
+}
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.09);
+  border-color: rgba(12,184,182,0.35);
+}
+.skill-icon-wrap {
+  width: 46px; height: 46px; border-radius: 10px;
+  background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 1rem;
+}
+.skill-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+.skill-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1rem; }
+.tag {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem;
+  padding: 0.22rem 0.55rem; border: 1px solid var(--border);
+  border-radius: 3px; color: var(--muted); letter-spacing: 0.04em;
+}
+
+/* ── WORK CARDS ── */
+.works-grid { display: grid; gap: 20px; }
+.work-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.work-card:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0,0,0,0.11); }
+.work-card-visual {
+  position: relative; overflow: hidden; min-height: 300px;
+  scrollbar-width: none;
+}
+.work-card-visual::-webkit-scrollbar { display: none; }
+.work-card-visual iframe { scrollbar-width: none; }
+.work-card-visual iframe {
+  width: 200%; height: 200%; border: none;
+  transform: scale(0.5); transform-origin: top left;
+  pointer-events: none;
+}
+.work-card-visual .visual-overlay {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.work-card-body {
+  padding: 2.5rem; display: flex; flex-direction: column; justify-content: center;
+}
+.work-num {
+  font-family: 'DM Mono', monospace; font-size: 0.65rem;
+  color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.75rem;
+}
+.work-title { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+.work-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+.work-badge-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+.work-badge {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem;
+  padding: 0.25rem 0.65rem;
+  background: var(--accent-light); color: var(--accent);
+  border: 1px solid rgba(12,184,182,0.25); border-radius: 3px; letter-spacing: 0.05em;
+}
+.work-badge.amber {
+  background: var(--amber-light); color: var(--amber);
+  border-color: rgba(200,90,16,0.2);
+}
+.work-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn-work {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.6rem 1.25rem; font-size: 0.82rem; font-weight: 600;
+  border-radius: var(--radius); text-decoration: none; transition: all 0.2s;
+  border: none; font-family: inherit; cursor: pointer;
+}
+.btn-work-primary { background: linear-gradient(135deg, #73F2F0 0%, #E938D3 100%); color: #0c1418; font-weight: 700; box-shadow: 0 3px 12px rgba(115,242,240,0.28); }
+.btn-work-primary:hover { background: linear-gradient(135deg, #8ff5f3 0%, #ec50dc 100%); transform: translateY(-1px); }
+
+/* ── EMBED ── */
+.embed-section { padding: 0 3rem 6rem; max-width: 1200px; margin: 0 auto; }
+.embed-wrapper {
+  border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  box-shadow: 0 16px 56px rgba(0,0,0,0.09);
+}
+.embed-bar {
+  background: #eeebe5; padding: 0.75rem 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.embed-dots { display: flex; gap: 0.4rem; }
+.embed-dots span { width: 11px; height: 11px; border-radius: 50%; }
+.embed-dots span:first-child { background: #ff5f57; }
+.embed-dots span:nth-child(2) { background: #febc2e; }
+.embed-dots span:nth-child(3) { background: #28c840; }
+.embed-url {
+  font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted);
+  background: var(--surface); padding: 0.28rem 1rem;
+  border-radius: 20px; border: 1px solid var(--border); flex: 1; text-align: center;
+}
+.embed-frame { width: 100%; height: 620px; border: none; display: block; }
+
+/* ── OSS DARK BAND ── */
+.oss-band { background: var(--hero-dark); padding: 5.5rem 3rem; position: relative; overflow: hidden; }
+.oss-band::before {
+  content: '';
+  position: absolute; top: -200px; right: -200px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(115,242,240,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.oss-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center;
+  position: relative; z-index: 1;
+}
+.oss-label {
+  font-family: 'DM Mono', monospace; font-size: 0.7rem;
+  color: #73F2F0; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.oss-title { font-size: 2.8rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 1rem; line-height: 1.1; }
+.oss-title span {
+  background: linear-gradient(90deg, #73F2F0, #E938D3);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.oss-desc { font-size: 0.9rem; color: rgba(255,255,255,0.48); line-height: 1.75; max-width: 480px; margin-bottom: 2rem; }
+.oss-stats { display: flex; gap: 3rem; }
+.oss-stat { text-align: center; }
+.oss-stat strong { display: block; font-size: 2.5rem; font-weight: 800; color: #73F2F0; line-height: 1; }
+.oss-stat span {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem;
+  color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.1em;
+}
+
+/* ── GITHUB CONTRIBUTIONS ── */
+.gh-card {
+  background: #080913;
+  border: 1px solid #30363d;
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem 1.25rem;
+  overflow: hidden;
+}
+.gh-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.gh-card-user {
+  display: flex; align-items: center; gap: 0.65rem;
+}
+.gh-card-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid #30363d;
+}
+.gh-card-user-info {
+  display: flex; flex-direction: column; gap: 0.25rem;
+}
+.gh-card-username {
+  font-family: 'DM Mono', monospace; font-size: 0.82rem;
+  color: #e6edf3; font-weight: 500; line-height: 1;
+}
+.gh-card-badges {
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+  margin-top: 0.3rem;
+}
+.gh-badge {
+  font-family: 'DM Mono', monospace; font-size: 0.65rem;
+  background: rgba(255,255,255,0.07); border: 1px solid #30363d;
+  color: #8b949e; padding: 0.15rem 0.55rem; border-radius: 20px;
+  white-space: nowrap;
+}
+.gh-badge-total {
+  color: #39d353; border-color: rgba(57,211,83,0.35);
+  background: rgba(57,211,83,0.08);
+}
+.gh-achievements {
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.gh-achievement {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: rgba(255,255,255,0.04); border: 1px solid #30363d;
+  border-radius: 20px; padding: 0.2rem 0.6rem 0.2rem 0.3rem;
+  text-decoration: none; transition: border-color 0.2s, background 0.2s;
+}
+.gh-achievement:hover { background: rgba(255,255,255,0.08); border-color: #58a6ff; }
+.gh-achievement img {
+  width: 18px; height: 18px; border-radius: 50%; object-fit: cover;
+}
+.gh-achievement-name {
+  font-family: 'DM Mono', monospace; font-size: 0.63rem;
+  color: #8b949e; white-space: nowrap;
+}
+.gh-card-link {
+  font-family: 'DM Mono', monospace; font-size: 0.72rem;
+  color: #58a6ff; text-decoration: none; letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.gh-card-link:hover { color: #79c0ff; text-decoration: underline; }
+.gh-stats-row { display: none; }
+.gh-graph-scroll { overflow-x: auto; display: flex; justify-content: center; }
+.gh-graph-inner { display: inline-flex; flex-direction: column; gap: 0; }
+.gh-months-row {
+  display: flex; margin-bottom: 4px;
+  padding-left: 34px; /* day-label col width (28px padding-right + 6px) */
+  gap: 0;
+}
+.gh-month-label {
+  font-family: 'DM Mono', monospace; font-size: 0.62rem;
+  color: #8b949e; line-height: 1;
+}
+.gh-grid-row { display: flex; gap: 0; }
+.gh-day-label-col {
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding-right: 6px; gap: 0;
+}
+.gh-day-label {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem;
+  color: #8b949e; line-height: 13px; height: 13px; white-space: nowrap;
+}
+.gh-weeks { display: flex; gap: 3px; }
+.gh-week { display: flex; flex-direction: column; gap: 3px; }
+.gh-cell {
+  width: 10px; height: 10px; border-radius: 2px;
+  background: #161b22;
+  cursor: default;
+  transition: outline 0.1s;
+}
+.gh-cell:hover { outline: 1px solid rgba(255,255,255,0.35); }
+.gh-cell[data-level="1"] { background: #0e4429; }
+.gh-cell[data-level="2"] { background: #006d32; }
+.gh-cell[data-level="3"] { background: #26a641; }
+.gh-cell[data-level="4"] { background: #39d353; }
+.gh-legend {
+  display: flex; align-items: center; gap: 5px;
+  margin-top: 0.75rem; justify-content: flex-end;
+}
+.gh-legend-label {
+  font-family: 'DM Mono', monospace; font-size: 0.6rem; color: #8b949e;
+}
+.gh-legend-cell {
+  width: 10px; height: 10px; border-radius: 2px;
+}
+.gh-tooltip {
+  position: fixed; z-index: 999;
+  background: #1c2128; border: 1px solid #444c56;
+  border-radius: 6px; padding: 0.35rem 0.65rem;
+  font-family: 'DM Mono', monospace; font-size: 0.68rem; color: #e6edf3;
+  pointer-events: none; white-space: nowrap;
+  display: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+/* ── CONTACT ── */
+.contact-wrap { border-top: 1px solid var(--border); }
+.contact-section {
+  padding: 6rem 3rem; max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+}
+.contact-big {
+  font-size: clamp(2.4rem, 4.5vw, 4rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+}
+.contact-big .hl { color: var(--accent-vivid); }
+.contact-links { display: flex; flex-direction: column; gap: 12px; }
+.contact-link-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.25rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  text-decoration: none; color: var(--text); transition: all 0.2s;
+}
+.contact-link-item:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+}
+.contact-link-left { display: flex; align-items: center; gap: 1rem; }
+.contact-link-icon {
+  width: 40px; height: 40px; border-radius: 9px;
+  background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.contact-link-name { font-size: 0.95rem; font-weight: 700; }
+.contact-link-sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+.contact-arrow { color: var(--muted); font-size: 1rem; transition: transform 0.2s, color 0.2s; }
+.contact-link-item:hover .contact-arrow { transform: translate(3px,-3px); color: var(--accent); }
+
+/* ── MODAL ── */
+.modal-backdrop {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center;
+}
+.modal-backdrop.open { display: flex; }
+.modal-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2.5rem 2.25rem 2rem;
+  max-width: 420px; width: calc(100% - 2rem);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+  text-align: center; position: relative;
+}
+.modal-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+.modal-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
+.modal-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.75rem; }
+.modal-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+.modal-close {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.65rem 1.4rem; font-size: 0.85rem; font-weight: 600;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--surface); color: var(--text);
+  cursor: pointer; transition: all 0.2s;
+}
+.modal-close:hover { background: var(--bg); border-color: var(--muted); }
+.modal-preview {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.65rem 1.4rem; font-size: 0.85rem; font-weight: 600;
+  border-radius: var(--radius); background: linear-gradient(135deg, #73F2F0 0%, #E938D3 100%); color: #0c1418;
+  cursor: pointer; text-decoration: none; border: none; transition: all 0.2s;
+}
+.modal-preview:hover { background: linear-gradient(135deg, #8ff5f3 0%, #ec50dc 100%); transform: translateY(-1px); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border); padding: 2rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-text { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+.footer-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent-vivid); animation: blink 2.5s ease-in-out infinite;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { gap: 1.25rem; }
+  .hero { padding: 6rem 1.5rem 4rem; }
+  .page-section, .embed-section { padding: 4rem 1.5rem; }
+  .work-card { grid-template-columns: 1fr; }
+  .work-card-visual { min-height: 220px; }
+  .oss-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .oss-stats { justify-content: flex-start; }
+  .contact-section { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+  footer { flex-direction: column; gap: 1rem; padding: 1.5rem; text-align: center; }
+  .hero-chip { display: none; }
+  .embed-frame { height: 480px; }
+}
+
+@media(max-width:600px){
+  nav { padding: 0.85rem 1rem; }
+  .nav-links { gap: 0.9rem; }
+  .nav-links a { font-size: 0.72rem; }
+  .hero { padding: 5.5rem 1rem 3.5rem; }
+  .hero h1 { font-size: clamp(2.4rem, 9vw, 3.2rem); }
+  .hero-desc { font-size: 0.9rem; }
+  .hero-stats-row { gap: 0.7rem; }
+  .hero-stat-pill { padding: 0.65rem 1rem; }
+  .hero-stat-pill strong { font-size: 1.35rem; }
+  .page-section, .embed-section { padding: 3rem 1rem; }
+  .oss-band { padding: 4rem 1rem; }
+  .oss-title { font-size: 2rem; }
+  .oss-stats { gap: 2rem; }
+  .work-card-body { padding: 1.5rem; }
+  .work-title { font-size: 1.3rem; }
+  .contact-section { padding: 3rem 1rem; }
+  .contact-big { font-size: clamp(2rem, 8vw, 2.8rem); }
+  footer { padding: 1.25rem 1rem; }
+  .embed-frame { height: 360px; }
+}
+
+@media(max-width:400px){
+  .nav-links { display: none; }
+}
+
+/* ── SPECIALTIES ── */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 2.5rem;
+}
+.spec-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+}
+.spec-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.09);
+  border-color: var(--accent);
+}
+.spec-visual {
+  height: 160px;
+  background: var(--accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.spec-body { padding: 1.25rem 1.25rem 1.5rem; }
+.spec-name { font-weight: 700; font-size: 1rem; margin-bottom: 0.35rem; }
+.spec-desc { font-size: 0.825rem; color: var(--muted); line-height: 1.55; margin-bottom: 0.85rem; }
+.spec-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+/* Phone mock */
+.mock-phone {
+  width: 70px; height: 118px;
+  border: 3px solid var(--accent);
+  border-radius: 14px;
+  background: #fff;
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 9px 6px 6px;
+  gap: 5px;
+  box-shadow: 0 4px 18px rgba(12,184,182,0.2);
+}
+.mock-phone-notch { width: 22px; height: 5px; background: var(--border); border-radius: 3px; margin-bottom: 2px; }
+.mock-phone-bar { width: 100%; height: 7px; background: var(--accent-light); border-radius: 3px; }
+.mock-phone-bar.w70 { width: 70%; }
+.mock-phone-bar.w50 { width: 50%; background: #f0f0f0; }
+/* Store mock */
+.mock-store {
+  width: 155px;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+}
+.mock-store-img { height: 58px; background: linear-gradient(135deg, var(--accent-light), #fdecd9); }
+.mock-store-body { padding: 8px; }
+.mock-store-line { height: 7px; background: var(--border); border-radius: 3px; margin-bottom: 5px; }
+.mock-store-line.accent { width: 40%; background: var(--accent); opacity: 0.55; margin-bottom: 8px; }
+.mock-store-btn { height: 20px; background: linear-gradient(90deg, var(--accent), var(--accent-vivid)); border-radius: 4px; opacity: 0.82; }
+/* Sphere mock */
+.mock-3d-wrap { position: relative; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; }
+.mock-sphere {
+  width: 78px; height: 78px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #e0fafa 0%, var(--accent) 42%, var(--accent-vivid) 100%);
+  box-shadow: 4px 6px 20px rgba(233,56,211,0.3), -2px -2px 10px rgba(115,242,240,0.25);
+}
+.mock-wireframe {
+  position: absolute;
+  width: 78px; height: 78px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(255,255,255,0.45);
+}
+.mock-wireframe::before {
+  content: ''; position: absolute;
+  top: 50%; left: 0; right: 0; height: 1.5px;
+  background: rgba(255,255,255,0.35);
+  transform: translateY(-50%);
+}
+.mock-wireframe::after {
+  content: ''; position: absolute;
+  left: 50%; top: 0; bottom: 0; width: 1.5px;
+  background: rgba(255,255,255,0.35);
+  transform: translateX(-50%);
+}
+/* Map mock */
+.mock-map {
+  width: 148px; height: 108px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background: #e8f5f4;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+}
+.mock-map-grid {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.mock-map-cell { border: 0.5px solid rgba(12,184,182,0.18); }
+.mock-map-cell:nth-child(2),.mock-map-cell:nth-child(6) { background: rgba(12,184,182,0.13); }
+.mock-map-cell:nth-child(7),.mock-map-cell:nth-child(9) { background: rgba(12,184,182,0.07); }
+.mock-map-cell:nth-child(3),.mock-map-cell:nth-child(11) { background: rgba(200,90,16,0.06); }
+.mock-map-pin {
+  position: absolute; top: 26%; left: 50%;
+  transform: translate(-50%, -100%);
+  font-size: 17px;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.22));
+}
+.mock-map-label {
+  position: absolute; bottom: 5px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace; font-size: 0.52rem;
+  color: var(--muted); white-space: nowrap; letter-spacing: 0.04em;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">JM de Leon</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div id="hero-particles"></div>
+
+  <!-- floating chips -->
+  <div class="hero-chip chip-1">npm install webtour.js</div>
+  <div class="hero-chip chip-2">git push origin main 🚀</div>
+
+  <div class="hero-inner">
+    <!-- text -->
+    <div class="hero-text">
+      <h1><span style="font-size: 3rem;">I'm Julious, a</span><br><em>Web Developer</em></h1>
+      <p class="hero-desc">
+        Full-stack developer crafting scalable, high-performance applications with React, React Native, Next.js, and Node.js. I build Shopify integrations and maintainable systems engineered for growth.
+      </p>
+      <div class="hero-ctas">
+        <a href="#work" class="btn btn-primary">View my work →</a>
+        <a href="https://github.com/votch18" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+      </div>
+      <div class="hero-stats-row">
+        <div class="hero-stat-pill"><strong>54</strong><span>Stars</span></div>
+        <div class="hero-stat-pill"><strong>20</strong><span>Forks</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<div class="page-section">
+  <div class="section-label">Capabilities</div>
+  <h2 class="section-title">What I do</h2>
+  <p class="section-sub">Full-stack developer focused on building everything from lightweight JavaScript utilities to complete product experiences.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon-wrap">⚡</div>
+      <div class="skill-name">Frontend Engineering</div>
+      <div class="skill-desc">Performant, interactive UIs with clean, maintainable code. Vanilla JS to modern frameworks.</div>
+      <div class="skill-tags">
+        <span class="tag">JavaScript</span><span class="tag">TypeScript</span>
+        <span class="tag">React</span><span class="tag">React-Native</span><span class="tag">Figma</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon-wrap">&#x1F527;</div>
+      <div class="skill-name">Backend & APIs</div>
+      <div class="skill-desc">Server-side systems, REST APIs, and database driven apps built for scale and reliability.</div>
+      <div class="skill-tags">
+        <span class="tag">Node.js</span><span class="tag">C#</span><span class="tag">PHP</span>
+        <span class="tag">MySQL</span><span class="tag">SQL Server</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon-wrap">🚀</div>
+      <div class="skill-name">Product Development</div>
+      <div class="skill-desc">Taking ideas from concept to launch, architecture, implementation, and iteration.</div>
+      <div class="skill-tags">
+        <span class="tag">SaaS</span><span class="tag">MVPs</span><span class="tag">Full-Stack</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon-wrap">&#x1F4F1;</div>
+      <div class="skill-name">React Native</div>
+      <div class="skill-desc">Ship cross-platform iOS and Android apps with React Native. I build performant mobile experiences and integrate native modules when needed.</div>
+      <div class="skill-tags">
+        <span class="tag">Expo</span><span class="tag">iOS</span><span class="tag">Android</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon-wrap">&#x1F6D2;</div>
+      <div class="skill-name">Shopify</div>
+      <div class="skill-desc">Build apps, custom storefronts with Liquid templating, Storefront API integrations, and theme development for seamless ecommerce experiences.</div>
+      <div class="skill-tags">
+        <span class="tag">Shopify</span><span class="tag">Liquid</span><span class="tag">Storefront API</span><span class="tag">Shopify App</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon-wrap">🌐</div>
+      <div class="skill-name">Three.js / 3D Web</div>
+      <div class="skill-desc">Creating immersive 3D experiences on the web using Three.js, and other modern web technologies.</div>
+      <div class="skill-tags">
+        <span class="tag">Three.js</span><span class="tag">3D</span><span class="tag">Web</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon-wrap">&#x1F4CD;</div>
+      <div class="skill-name">GIS &amp; Mapping</div>
+      <div class="skill-desc">Analyzing and visualizing spatial data using GIS tools and mapping libraries for insightful geospatial solutions.</div>
+      <div class="skill-tags">
+        <span class="tag">GIS</span><span class="tag">QGIS</span><span class="tag">ArcView</span><span class="tag">Mapping</span><span class="tag">Spatial Data</span><span class="tag">Geospatial</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon-wrap">⛓️</div>
+      <div class="skill-name">Blockchain & Web3</div>
+      <div class="skill-desc">Smart contract integration, NFT platforms, and Web3 frontend experiences, connecting decentralized protocols to polished UIs.</div>
+      <div class="skill-tags">
+        <span class="tag">Web3</span><span class="tag">NFT</span><span class="tag">Solidity</span><span class="tag">Ethers.js</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WORK -->
+<div class="page-section" id="work">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Things I've built</h2>
+  <p class="section-sub">From open-source utilities to full product experiences — a selection of what I've shipped.</p>
+
+  <div class="works-grid">
+
+    <!-- webtour.js card -->
+    <div class="work-card">
+      <div class="work-card-visual">
+        <div style="width:100%;height:100%;min-height:300px;background:linear-gradient(145deg,#060a14 0%,#0a1020 55%,#060c18 100%);display:flex;align-items:center;justify-content:center;padding:2rem;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1.4rem;width:100%;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.67rem;color:#73F2F0;letter-spacing:0.15em;text-transform:uppercase;">Open Source Library</div>
+            <div style="font-size:2.2rem;font-weight:800;color:#fff;letter-spacing:-0.02em;text-align:center;">webtour<span style="color:#73F2F0;">.js</span></div>
+            <!-- mock browser window -->
+            <div style="width:100%;max-width:280px;background:#0c1424;border:1px solid rgba(115,242,240,0.25);border-radius:10px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,0.4);">
+              <div style="background:#080e1a;padding:0.6rem 0.9rem;display:flex;gap:5px;align-items:center;border-bottom:1px solid rgba(115,242,240,0.12);">
+                <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;"></span>
+                <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;"></span>
+                <span style="width:8px;height:8px;border-radius:50%;background:#28c840;"></span>
+              </div>
+              <div style="padding:1.1rem;">
+                <div style="height:8px;background:rgba(255,255,255,0.07);border-radius:4px;margin-bottom:7px;width:75%;"></div>
+                <div style="height:8px;background:rgba(255,255,255,0.04);border-radius:4px;margin-bottom:7px;width:55%;"></div>
+                <!-- highlighted element with tooltip -->
+                <div style="position:relative;margin-top:1rem;">
+                  <div style="height:32px;background:rgba(115,242,240,0.1);border:2px solid #73F2F0;border-radius:6px;display:flex;align-items:center;padding:0 0.75rem;">
+                    <div style="height:7px;width:60%;background:rgba(115,242,240,0.3);border-radius:3px;"></div>
+                  </div>
+                  <!-- tooltip -->
+                  <div style="position:absolute;bottom:calc(100% + 10px);left:0;background:linear-gradient(135deg,#73F2F0,#E938D3);color:#080913;font-family:'DM Mono',monospace;font-size:0.62rem;font-weight:700;padding:0.35rem 0.75rem;border-radius:6px;white-space:nowrap;box-shadow:0 4px 14px rgba(115,242,240,0.3);">
+                    👋 Step 1 of 3 — Click here
+                    <div style="position:absolute;top:100%;left:18px;border:5px solid transparent;border-top-color:#73F2F0;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.62rem;background:rgba(115,242,240,0.08);border:1px solid rgba(115,242,240,0.25);color:#73F2F0;padding:0.2rem 0.6rem;border-radius:4px;">Zero deps</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.62rem;background:rgba(115,242,240,0.08);border:1px solid rgba(115,242,240,0.25);color:#73F2F0;padding:0.2rem 0.6rem;border-radius:4px;">Vanilla JS</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.62rem;background:rgba(115,242,240,0.08);border:1px solid rgba(115,242,240,0.25);color:#73F2F0;padding:0.2rem 0.6rem;border-radius:4px;">npm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-num">01 — Open Source</div>
+        <div class="work-title">webtour.js</div>
+        <div class="work-badge-row">
+          <span class="work-badge">⭐ 54 stars</span>
+          <span class="work-badge">🍴 20 forks</span>
+        </div>
+        <div class="work-desc">
+          A lightweight, zero dependency step-by-step user guide library for websites. Helps onboard users with interactive product tours and guided walkthroughs without the bloat.
+        </div>
+        <div class="skill-tags" style="margin-bottom:1.5rem;">
+          <span class="tag">Vanilla JS</span><span class="tag">UX</span>
+          <span class="tag">Library</span><span class="tag">npm</span>
+        </div>
+        <div class="work-actions">
+          <a href="https://github.com/votch18/webtour.js" target="_blank" class="btn-work btn-work-primary">View on GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Metaprints card -->
+    <div class="work-card">
+      <div class="work-card-visual" style="background:#f0f0f0;">
+        <iframe
+          src="https://metaprints.com"
+          style="width:200%;height:200%;border:none;transform:scale(0.5);transform-origin:top left;pointer-events:none;overflow:hidden;"
+          loading="lazy"
+          scrolling="no"
+          sandbox="allow-scripts allow-same-origin"
+          title="Metaprints preview"
+        ></iframe>
+        <div class="visual-overlay" style="background:linear-gradient(to right, transparent 75%, rgba(255,255,255,0.06));"></div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-num">02 — Product</div>
+        <div class="work-title">Metaprints</div>
+        <div class="work-badge-row">
+          <span class="work-badge amber">Live Product</span>
+          <span class="work-badge amber">Full-Stack</span>
+        </div>
+        <div class="work-desc">
+         A digital product platform built from the ground up, translating Figma designs into pixel-perfect HTML with a strong focus on user experience, covering everything from frontend interfaces to backend systems.
+        </div>
+        <div class="skill-tags" style="margin-bottom:1.5rem;">
+          <span class="tag">Full-Stack</span><span class="tag">Product</span>
+          <span class="tag">Web App</span><span class="tag">SaaS</span><span class="tag">Figma</span>
+        </div>
+        <div class="work-actions">
+          <a href="https://metaprints.com" target="_blank" class="btn-work btn-work-primary">Visit site ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-visual" style="background:#080c1a;">
+        <iframe
+          src="/metaprints/3davatar.html"
+          style="width:200%;height:200%;border:none;transform:scale(0.5);transform-origin:top left;pointer-events:none;overflow:hidden;"
+          loading="lazy"
+          scrolling="no"
+          sandbox="allow-scripts allow-same-origin"
+          title="Metaprints 3D Avatar preview"
+        ></iframe>
+        <div class="visual-overlay" style="background:linear-gradient(to right, transparent 75%, rgba(8,12,26,0.06));"></div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-num">03 — Web3 / Metaverse</div>
+        <div class="work-title">Metaprints 3D Avatar</div>
+        <div class="work-badge-row">
+          <span class="work-badge">Metaverse</span>
+          <span class="work-badge">3D</span>
+          <span class="work-badge">Figma</span>
+        </div>
+        <div class="work-desc">
+          A landing page for Metaprints' 3D avatar blueprint, showcasing cross-metaverse digital identity assets with rich visuals and interactive elements.
+        </div>
+        <div class="skill-tags" style="margin-bottom:1.5rem;">
+          <span class="tag">HTML/CSS</span><span class="tag">Frontend</span>
+          <span class="tag">Metaverse</span><span class="tag">3D</span>
+        </div>
+        <div class="work-actions">
+          <button onclick="openNotLiveModal('/metaprints/3davatar', this)" class="btn-work btn-work-primary">Visit site ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-visual" style="background:#0d0309;">
+        <iframe
+          src="/metaprints/lunar.html"
+          style="width:200%;height:200%;border:none;transform:scale(0.5);transform-origin:top left;pointer-events:none;overflow:hidden;"
+          loading="lazy"
+          scrolling="no"
+          sandbox="allow-scripts allow-same-origin"
+          title="Metaprints Lunar New Year preview"
+        ></iframe>
+        <div class="visual-overlay" style="background:linear-gradient(to right, transparent 75%, rgba(13,3,9,0.06));"></div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-num">04 — Web3 / Campaign</div>
+        <div class="work-title">Metaprints Lunar 2022</div>
+        <div class="work-badge-row">
+          <span class="work-badge amber">Campaign</span>
+          <span class="work-badge amber">NFT</span>
+        </div>
+        <div class="work-desc">
+          A limited-edition Lunar New Year 2022 campaign. Year of the Tiger collectibles for The Sandbox metaverse, with rich cultural visuals and storytelling.
+        </div>
+        <div class="skill-tags" style="margin-bottom:1.5rem;">
+          <span class="tag">HTML/CSS</span><span class="tag">Frontend</span>
+          <span class="tag">NFT</span><span class="tag">Campaign</span>
+        </div>
+        <div class="work-actions">
+          <button onclick="openNotLiveModal('/metaprints/lunar.html', this)" class="btn-work btn-work-primary">Visit site ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PolkaPet Games UI card -->
+    <div class="work-card">
+      <div class="work-card-visual" style="background:#f0f0f0;">
+        <iframe
+          src="/polkapetgames/"
+          style="width:200%;height:200%;border:none;transform:scale(0.5);transform-origin:top left;pointer-events:none;overflow:hidden;"
+          loading="lazy"
+          scrolling="no"
+          sandbox="allow-scripts allow-same-origin"
+          title="PolkaPet Games UI preview"
+        ></iframe>
+        <div class="visual-overlay" style="background:linear-gradient(to right, transparent 75%, rgba(255,255,255,0.06));"></div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-num">05 — Product</div>
+        <div class="work-title">PolkaPet Games</div>
+        <div class="work-badge-row">
+          <span class="work-badge amber">Full-Stack</span>
+        </div>
+        <div class="work-desc">
+          A game-focused web interface with a playful visual direction and responsive layout, built for smooth browsing and a polished product feel.
+        </div>
+        <div class="skill-tags" style="margin-bottom:1.5rem;">
+          <span class="tag">UI/UX</span><span class="tag">Frontend</span>
+          <span class="tag">Web App</span><span class="tag">Responsive</span>
+        </div>
+        <div class="work-actions">
+          <button onclick="openNotLiveModal('/polkapetgames/', this)" class="btn-work btn-work-primary">Visit site ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seafloor card -->
+    <div class="work-card">
+      <div class="work-card-visual" style="background:#050810;">
+        <iframe
+          src="/seafloor/"
+          style="width:200%;height:200%;border:none;transform:scale(0.5);transform-origin:top left;pointer-events:none;overflow:hidden;"
+          loading="lazy"
+          scrolling="no"
+          sandbox="allow-scripts allow-same-origin"
+          title="Seafloor preview"
+        ></iframe>
+        <div class="visual-overlay" style="background:linear-gradient(to right, transparent 75%, rgba(5,8,16,0.06));"></div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-num">06 — Web3 / Analytics</div>
+        <div class="work-title">Seafloor</div>
+        <div class="work-badge-row">
+          <span class="work-badge amber">NFT</span>
+          <span class="work-badge amber">Web3</span>
+        </div>
+        <div class="work-desc">
+          NFT floor price and rarity analysis built for collectors—quick insights across collections with a clean, dark UI.
+        </div>
+        <div class="skill-tags" style="margin-bottom:1.5rem;">
+          <span class="tag">Web3</span><span class="tag">NFT</span>
+          <span class="tag">Analytics</span><span class="tag">Frontend</span>
+        </div>
+        <div class="work-actions">
+          <button onclick="openNotLiveModal('/seafloor/', this)" class="btn-work btn-work-primary">Visit site ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-visual" style="background:#050810;">
+        <iframe
+          src="/darkfrontier/"
+          style="width:200%;height:200%;border:none;transform:scale(0.5);transform-origin:top left;pointer-events:none;overflow:hidden;"
+          loading="lazy"
+          scrolling="no"
+          sandbox="allow-scripts allow-same-origin"
+          title="Dark Frontier preview"
+        ></iframe>
+        <div class="visual-overlay" style="background:linear-gradient(to right, transparent 75%, rgba(5,8,16,0.06));"></div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-num">07 — Game / Web3</div>
+        <div class="work-title">Dark Frontier</div>
+        <div class="work-badge-row">
+          <span class="work-badge amber">Web3</span>
+          <span class="work-badge amber">Frontend</span>
+        </div>
+        <div class="work-desc">
+          A dark sci-fi web experience for a blockchain space-shooter game. Cinematic video backgrounds, responsive layout, and an immersive visual identity built for Web3 audiences.
+        </div>
+        <div class="skill-tags" style="margin-bottom:1.5rem;">
+          <span class="tag">HTML/CSS</span><span class="tag">Frontend</span>
+          <span class="tag">Web3</span><span class="tag">Video</span>
+        </div>
+        <div class="work-actions">
+          <button onclick="openNotLiveModal('/darkfrontier/', this)" class="btn-work btn-work-primary">Visit site ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-visual" style="background:#0d0d0d;">
+        <iframe
+          src="/curry/"
+          style="width:200%;height:200%;border:none;transform:scale(0.5);transform-origin:top left;pointer-events:none;overflow:hidden;"
+          loading="lazy"
+          scrolling="no"
+          sandbox="allow-scripts allow-same-origin"
+          title="Curry Brand preview"
+        ></iframe>
+        <div class="visual-overlay" style="background:linear-gradient(to right, transparent 75%, rgba(13,13,13,0.06));"></div>
+      </div>
+      <div class="work-card-body">
+        <div class="work-num">08 — Brand / Web3</div>
+        <div class="work-title">Curry Brand</div>
+        <div class="work-badge-row">
+          <span class="work-badge amber">NFT</span>
+          <span class="work-badge amber">Brand</span>
+        </div>
+        <div class="work-desc">
+          A polished NFT brand site featuring video-backed hero sections and smooth storytelling—built to present a high-profile digital collectibles campaign. (Recreated from original website)
+        </div>
+        <div class="skill-tags" style="margin-bottom:1.5rem;">
+          <span class="tag">HTML/CSS</span><span class="tag">Frontend</span>
+          <span class="tag">NFT</span><span class="tag">Video</span>
+        </div>
+        <div class="work-actions">
+          <button onclick="openNotLiveModal('/curry/', this)" class="btn-work btn-work-primary">Visit site ↗</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- METAPRINTS FULL EMBED -->
+<!-- <div class="embed-section">
+  <div class="embed-wrapper">
+    <div class="embed-bar">
+      <div class="embed-dots"><span></span><span></span><span></span></div>
+      <div class="embed-url">metaprints.com</div>
+    </div>
+    <iframe class="embed-frame" src="https://metaprints.com" title="Metaprints" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+  </div>
+</div> -->
+
+<!-- OSS DARK BAND -->
+<div class="oss-band" id="oss">
+  <div class="oss-inner">
+    <div>
+      <div class="oss-label">Open Source</div>
+      <div class="oss-title"><span>webtour</span>.js</div>
+      <p class="oss-desc">A step-by-step user guide library for websites. Vanilla JS, zero dependencies, zero configuration. Just import, point it at your elements, and your users get a smooth onboarding experience out of the box.</p>
+      <a href="https://github.com/votch18/webtour.js" target="_blank" class="btn btn-primary">View Repository →</a>
+    </div>
+    <div class="oss-stats">
+      <div class="oss-stat"><strong>54</strong><span>Stars</span></div>
+      <div class="oss-stat"><strong>20</strong><span>Forks</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- GITHUB CONTRIBUTIONS -->
+<div class="page-section" id="contributions">
+  <div class="section-label">Activity</div>
+  <h2 class="section-title">GitHub Contributions</h2>
+  <p class="section-sub">A year of commits, pushes, and late-night PRs.</p>
+  <div class="gh-card" id="gh-card">
+    <div class="gh-card-header">
+      <div class="gh-card-user">
+        <img src="https://github.com/votch18.png?size=64" alt="votch18" class="gh-card-avatar">
+        <div class="gh-card-user-info">
+          <span class="gh-card-username">votch18</span>
+          <div class="gh-card-badges">
+            <span class="gh-badge gh-badge-total"><span id="gh-total">—</span> public contributions</span>
+          </div>
+          <!-- <div class="gh-achievements">
+            <a href="https://github.com/votch18?achievement=starstruck" target="_blank" class="gh-achievement" title="Starstruck">
+              <img src="https://github.githubassets.com/images/modules/profile/achievements/starstruck-default.png" alt="Starstruck">
+              <span class="gh-achievement-name">Starstruck</span>
+            </a>
+            <a href="https://github.com/votch18?achievement=pull-shark" target="_blank" class="gh-achievement" title="Pull Shark">
+              <img src="https://github.githubassets.com/images/modules/profile/achievements/pull-shark-default.png" alt="Pull Shark">
+              <span class="gh-achievement-name">Pull Shark</span>
+            </a>
+            <a href="https://github.com/votch18?achievement=quickdraw" target="_blank" class="gh-achievement" title="Quickdraw">
+              <img src="https://github.githubassets.com/images/modules/profile/achievements/quickdraw-default.png" alt="Quickdraw">
+              <span class="gh-achievement-name">Quickdraw</span>
+            </a>
+            <a href="https://github.com/votch18?achievement=yolo" target="_blank" class="gh-achievement" title="YOLO">
+              <img src="https://github.githubassets.com/images/modules/profile/achievements/yolo-default.png" alt="YOLO">
+              <span class="gh-achievement-name">YOLO</span>
+            </a>
+          </div> -->
+        </div>
+      </div>
+      <a href="https://github.com/votch18" target="_blank" class="gh-card-link">View on GitHub ↗</a>
+    </div>
+    <div class="gh-graph-scroll">
+      <div class="gh-graph-inner">
+        <div class="gh-months-row" id="gh-months"></div>
+        <div class="gh-grid-row">
+          <div class="gh-day-label-col">
+            <span class="gh-day-label"></span>
+            <span class="gh-day-label">Mon</span>
+            <span class="gh-day-label"></span>
+            <span class="gh-day-label">Wed</span>
+            <span class="gh-day-label"></span>
+            <span class="gh-day-label">Fri</span>
+            <span class="gh-day-label"></span>
+          </div>
+          <div class="gh-weeks" id="gh-weeks"></div>
+        </div>
+      </div>
+    </div>
+    <div class="gh-legend">
+      <span class="gh-legend-label">Less</span>
+      <div class="gh-legend-cell" style="background:#161b22"></div>
+      <div class="gh-legend-cell" style="background:#0e4429"></div>
+      <div class="gh-legend-cell" style="background:#006d32"></div>
+      <div class="gh-legend-cell" style="background:#26a641"></div>
+      <div class="gh-legend-cell" style="background:#39d353"></div>
+      <span class="gh-legend-label">More</span>
+    </div>
+  </div>
+  <div class="gh-tooltip" id="gh-tooltip"></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<div class="contact-wrap">
+  <div class="contact-section" id="contact">
+    <div>
+      <div class="section-label">Get in touch</div>
+      <div class="contact-big">
+        Let's build<br>something<br><span class="hl">great.</span>
+      </div>
+    </div>
+    <div class="contact-links">
+      <a href="https://github.com/votch18" target="_blank" class="contact-link-item">
+        <div class="contact-link-left">
+          <div class="contact-link-icon">⌥</div>
+          <div>
+            <div class="contact-link-name">GitHub</div>
+            <div class="contact-link-sub">@votch18</div>
+          </div>
+        </div>
+        <div class="contact-arrow">↗</div>
+      </a>
+      <a href="https://metaprints.com" target="_blank" class="contact-link-item">
+        <div class="contact-link-left">
+          <div class="contact-link-icon">◈</div>
+          <div>
+            <div class="contact-link-name">Metaprints</div>
+            <div class="contact-link-sub">metaprints.com</div>
+          </div>
+        </div>
+        <div class="contact-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- NOT LIVE MODAL -->
+<div class="modal-backdrop" id="notLiveModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <div class="modal-icon">🐾</div>
+    <div class="modal-title">Site no longer live</div>
+    <p class="modal-desc">This portfolio preview showcases the frontend I developed. I also built the complete backend system.</p>
+    <div class="modal-actions">
+      <button class="modal-close" onclick="document.getElementById('notLiveModal').classList.remove('open')">Got it</button>
+      <a id="notLiveModalLink" href="#" target="_blank" class="modal-preview">View anyway ↗</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-text">© 2026 JM de Leon — votch18</span>
+  <div class="footer-dot"></div>
+  <span class="footer-text">Built with care · Philippines</span>
+</footer>
+
+<script>
+  /* ── GITHUB CONTRIBUTION GRAPH ── */
+  (function () {
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    async function loadContributions() {
+      // Fetch both the current and previous year then slice to last 365 days,
+      // matching GitHub's default "past year" view (today − 364 days → today).
+      const today   = new Date();
+      const cutoff  = new Date(today); cutoff.setDate(cutoff.getDate() - 364);
+      const cutStr  = cutoff.toISOString().slice(0, 10);
+      const todayStr= today.toISOString().slice(0, 10);
+
+      let contributions = [];
+      try {
+        const curYear  = new Date().getFullYear();
+        const [r1, r2] = await Promise.all([
+          fetch(`https://github-contributions-api.jogruber.de/v4/votch18?y=${curYear - 1}`),
+          fetch(`https://github-contributions-api.jogruber.de/v4/votch18?y=${curYear}`)
+        ]);
+        const [d1, d2] = await Promise.all([r1.json(), r2.json()]);
+        const all = [...(d1.contributions || []), ...(d2.contributions || [])];
+        // Deduplicate and filter to last 365 days
+        const seen = new Set();
+        contributions = all
+          .filter(d => d.date >= cutStr && d.date <= todayStr)
+          .filter(d => seen.has(d.date) ? false : seen.add(d.date))
+          .sort((a, b) => a.date.localeCompare(b.date));
+        // Use the API's pre-computed yearly totals for accuracy
+        const apiTotal = (d1.total[curYear - 1] || 0) + (d2.total[curYear] || 0);
+        render(contributions, apiTotal);
+      } catch (e) {
+        for (let i = 364; i >= 0; i--) {
+          const d = new Date(today); d.setDate(d.getDate() - i);
+          contributions.push({ date: d.toISOString().slice(0,10), count: 0, level: 0 });
+        }
+      }
+      render(contributions, null);
+    }
+
+    function render(contributions, apiTotal) {
+      // Stats — prefer the API's pre-computed total; fall back to summing daily data
+      const total = apiTotal !== null ? apiTotal : contributions.reduce((s, d) => s + d.count, 0);
+      document.getElementById('gh-total').textContent = total.toLocaleString();
+
+      // Build week columns (Sunday-first)
+      // Pad front so first day aligns to correct weekday
+      const firstDate = new Date(contributions[0].date + 'T00:00:00');
+      const padDays   = firstDate.getDay(); // 0=Sun
+      const padded    = Array(padDays).fill(null).concat(contributions);
+
+      const weeks = [];
+      for (let i = 0; i < padded.length; i += 7) weeks.push(padded.slice(i, i + 7));
+
+      // Month labels — one span per week column, same width as a week (13px).
+      // Only the first week of a new month shows text; all others are empty spacers.
+      const monthsEl = document.getElementById('gh-months');
+      monthsEl.innerHTML = '';
+      const CELL_W = 10, CELL_GAP = 3, WEEK_W = CELL_W + CELL_GAP; // 13px per week
+      let lastMonth = -1;
+      weeks.forEach((week) => {
+        const label = document.createElement('span');
+        label.className = 'gh-month-label';
+        label.style.cssText = `display:inline-block;width:${WEEK_W}px;flex-shrink:0;`;
+        const firstReal = week.find(d => d !== null);
+        if (firstReal) {
+          const m = new Date(firstReal.date + 'T00:00:00').getMonth();
+          if (m !== lastMonth) {
+            label.textContent = MONTHS[m];
+            lastMonth = m;
+          }
+        }
+        monthsEl.appendChild(label);
+      });
+
+      // Weeks grid
+      const weeksEl = document.getElementById('gh-weeks');
+      weeksEl.innerHTML = '';
+      const tooltip  = document.getElementById('gh-tooltip');
+
+      weeks.forEach(week => {
+        const col = document.createElement('div');
+        col.className = 'gh-week';
+        for (let di = 0; di < 7; di++) {
+          const day  = week[di];
+          const cell = document.createElement('div');
+          cell.className = 'gh-cell';
+          if (day) {
+            cell.dataset.level = day.level;
+            const dateObj = new Date(day.date + 'T00:00:00');
+            const label   = day.count === 1
+              ? `1 contribution on ${dateObj.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`
+              : `${day.count} contributions on ${dateObj.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}`;
+            cell.addEventListener('mouseenter', e => {
+              tooltip.textContent = label;
+              tooltip.style.display = 'block';
+            });
+            cell.addEventListener('mousemove', e => {
+              tooltip.style.left = (e.clientX + 12) + 'px';
+              tooltip.style.top  = (e.clientY - 28) + 'px';
+            });
+            cell.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+          }
+          col.appendChild(cell);
+        }
+        weeksEl.appendChild(col);
+      });
+    }
+
+    loadContributions();
+  })();
+
+  (function () {
+    const hero    = document.querySelector('.hero');
+    const wrapper = document.getElementById('hero-particles');
+    const canvas  = document.createElement('canvas');
+    const ctx     = canvas.getContext('2d');
+    Object.assign(canvas.style, { position: 'absolute', inset: '0', width: '100%', height: '100%' });
+    wrapper.appendChild(canvas);
+
+    const palette = [
+      [115, 242, 240],
+      [ 12, 184, 182],
+      [233,  56, 211],
+      [180,  30, 160],
+      [ 60, 200, 198],
+      [200,  80, 185],
+    ];
+
+    function randColor() {
+      return [...palette[Math.floor(Math.random() * palette.length)]];
+    }
+
+    function createBlob() {
+      return {
+        x:        Math.random() * canvas.width,
+        y:        Math.random() * canvas.height,
+        vx:       (Math.random() - 0.5) * 0.3,
+        vy:       (Math.random() - 0.5) * 0.3,
+        radius:   220 + Math.random() * 250,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.002,
+        pts:      Array.from({ length: 8 }, () => 0.65 + Math.random() * 0.7),
+        color:    randColor(),
+        target:   null,
+        opacity:  0.13 + Math.random() * 0.17,
+      };
+    }
+
+    function resize() {
+      canvas.width  = wrapper.offsetWidth;
+      canvas.height = wrapper.offsetHeight;
+    }
+
+    const blobs = [];
+    let mouse     = null;
+    let drag      = null;   // { blob, tx, ty, px, py }
+    let dragMoved = false;
+
+    function lerp(a, b, t) { return a.map((v, i) => v + (b[i] - v) * t); }
+
+    function drawBlob(blob) {
+      const n = blob.pts.length;
+      const v = blob.pts.map((r, i) => ({
+        x: blob.x + Math.cos((i / n) * Math.PI * 2 + blob.rotation) * blob.radius * r,
+        y: blob.y + Math.sin((i / n) * Math.PI * 2 + blob.rotation) * blob.radius * r,
+      }));
+
+      ctx.beginPath();
+      for (let i = 0; i < n; i++) {
+        const a = v[i], b = v[(i + 1) % n], c = v[(i + 2) % n];
+        const m1 = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+        const m2 = { x: (b.x + c.x) / 2, y: (b.y + c.y) / 2 };
+        if (i === 0) ctx.moveTo(m1.x, m1.y);
+        ctx.quadraticCurveTo(b.x, b.y, m2.x, m2.y);
+      }
+      ctx.closePath();
+
+      const [r, g, b_] = blob.color;
+      ctx.fillStyle = `rgba(${Math.round(r)},${Math.round(g)},${Math.round(b_)},${blob.opacity})`;
+      ctx.fill();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const W = canvas.width, H = canvas.height;
+
+      // Update grab cursor
+      if (!drag && mouse) {
+        const hovered = blobs.some(b => Math.hypot(b.x - mouse.x, b.y - mouse.y) < b.radius * 0.85);
+        canvas.style.cursor = hovered ? 'grab' : 'default';
+      }
+
+      blobs.forEach(blob => {
+        if (drag && drag.blob === blob) {
+          // ── Elastic spring toward drag target ──
+          blob.vx += (drag.tx - blob.x) * 0.1;
+          blob.vy += (drag.ty - blob.y) * 0.1;
+          blob.vx *= 0.68;
+          blob.vy *= 0.68;
+        } else {
+          // Normal repulsion (only for non-dragged blobs)
+          if (mouse) {
+            const dx = blob.x - mouse.x, dy = blob.y - mouse.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 340 && dist > 0) {
+              const f = Math.pow((340 - dist) / 340, 2) * 1.8;
+              blob.vx += (dx / dist) * f;
+              blob.vy += (dy / dist) * f;
+            }
+          }
+
+          // Dampen + clamp speed
+          blob.vx *= 0.978;
+          blob.vy *= 0.978;
+          const spd = Math.hypot(blob.vx, blob.vy);
+          if (spd > 2.8) { blob.vx = blob.vx / spd * 2.8; blob.vy = blob.vy / spd * 2.8; }
+          if (spd < 0.07) {
+            const a = Math.random() * Math.PI * 2;
+            blob.vx += Math.cos(a) * 0.06;
+            blob.vy += Math.sin(a) * 0.06;
+          }
+        }
+
+        blob.x += blob.vx;
+        blob.y += blob.vy;
+        blob.rotation += blob.rotSpeed;
+
+        // Wrap edges
+        const m = blob.radius;
+        if (blob.x < -m) blob.x = W + m;
+        if (blob.x > W + m) blob.x = -m;
+        if (blob.y < -m) blob.y = H + m;
+        if (blob.y > H + m) blob.y = -m;
+
+        // Smooth color transition
+        if (blob.target) {
+          blob.color = lerp(blob.color, blob.target, 0.035);
+          if (blob.target.every((v, i) => Math.abs(v - blob.color[i]) < 1)) {
+            blob.color = [...blob.target];
+            blob.target = null;
+          }
+        }
+
+        drawBlob(blob);
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    // ── Pointer helpers ──
+    function pointerPos(e) {
+      const src = e.touches ? e.touches[0] : e;
+      const r   = canvas.getBoundingClientRect();
+      return { x: src.clientX - r.left, y: src.clientY - r.top };
+    }
+
+    function startDrag(e) {
+      if (e.target.closest('a, button')) return;
+      const { x, y } = pointerPos(e);
+      // Pick the topmost blob that contains the pointer (last drawn = on top)
+      const hit = [...blobs].reverse().find(b => Math.hypot(b.x - x, b.y - y) < b.radius * 0.85);
+      if (!hit) return;
+      drag      = { blob: hit, tx: x, ty: y, px: x, py: y };
+      dragMoved = false;
+      canvas.style.cursor = 'grabbing';
+      e.preventDefault();
+    }
+
+    function moveDrag(e) {
+      const { x, y } = pointerPos(e);
+      mouse = { x, y };
+      if (drag) {
+        if (Math.hypot(x - drag.px, y - drag.py) > 4) dragMoved = true;
+        drag.px = drag.tx;
+        drag.py = drag.ty;
+        drag.tx = x;
+        drag.ty = y;
+        e.preventDefault();
+      }
+    }
+
+    function endDrag() {
+      if (drag) {
+        // Launch with the velocity of the last cursor movement
+        drag.blob.vx = (drag.tx - drag.px) * 0.4;
+        drag.blob.vy = (drag.ty - drag.py) * 0.4;
+        drag = null;
+        canvas.style.cursor = 'grab';
+      }
+    }
+
+    // Click → change colors only when not dragging
+    hero.addEventListener('click', e => {
+      if (dragMoved || e.target.closest('a, button')) return;
+      blobs.forEach(blob => {
+        let next;
+        do { next = randColor(); }
+        while (next.join() === blob.color.map(Math.round).join());
+        blob.target = next;
+      });
+    });
+
+    hero.addEventListener('mousedown',  startDrag);
+    hero.addEventListener('touchstart', startDrag, { passive: false });
+
+    hero.addEventListener('mousemove',  moveDrag);
+    hero.addEventListener('touchmove',  moveDrag, { passive: false });
+
+    window.addEventListener('mouseup',  endDrag);
+    window.addEventListener('touchend', endDrag);
+
+    hero.addEventListener('mouseleave', () => { if (!drag) mouse = null; });
+    window.addEventListener('resize', resize);
+
+    resize();
+    for (let i = 0; i < 4; i++) blobs.push(createBlob());
+    animate();
+  }());
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.skill-card, .work-card, .spec-card, .contact-link-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(22px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    io.observe(el);
+  });
+
+  function openNotLiveModal(url, triggerEl) {
+    document.getElementById('notLiveModalLink').href = url;
+
+    const modal = document.getElementById('notLiveModal');
+    const modalDescEl = modal.querySelector('.modal-desc');
+
+    modal.classList.add('open');
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.getElementById('notLiveModal').classList.remove('open');
+  });
+</script>
+</body>
+</html>
