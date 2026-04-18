@@ -1,6 +1,6 @@
 # Hi there 👋
 
-<span style="display: inline-flex; align-items: center; gap: 4px;">I'm Julious, a Full Stack Web Developer from the Philippines <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1ed.svg" width="16" height="16" alt="Philippines flag" style="vertical-align: -2px;"/>.</span>
+<span style="display: inline-flex; align-items: center; gap: 4px;">I'm Julious, a Full Stack Web Developer from the Philippines <img src="https://twemoji.maxcdn.com/v/latest/svg/1f1f5-1f1ed.svg" width="16" height="16" alt="Philippines flag" align="left" style="vertical-align: -2px;"/>.</span>
 
  ### 💪 What I do
 
